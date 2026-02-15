@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "token-optimizer"
+version = "0.1.0"
+description = "A generic token optimization engine that reduces LLM API costs by compressing prompts while preserving semantic meaning."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = ["llm", "tokens", "optimization", "prompt", "compression", "openai", "anthropic", "gemini"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.optional-dependencies]
+openai = ["tiktoken>=0.5.0"]
+embeddings = ["sentence-transformers>=2.2.0"]
+all = ["tiktoken>=0.5.0", "sentence-transformers>=2.2.0"]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "tiktoken>=0.5.0",
+]
+
+[project.scripts]
+token-optimizer = "token_optimizer.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
