@@ -158,3 +158,57 @@ The following prompts were tested live — both original and aggressive versions
 ### Conclusion
 
 Across 8 test prompts, the aggressive optimization strategy consistently produces **95%+ similar LLM outputs** while reducing token count by 4-14%. The optimizer removes filler words, polite padding, and redundant phrasing without affecting the semantic meaning that drives LLM behavior.
+
+---
+
+## Assumed Cost Savings at Scale
+
+> **Disclaimer:** The figures below are **assumptions only**, based on extrapolating from the test results above. Actual savings will vary depending on prompt length, model choice, call volume, and optimization strategy. These projections are intended to help startups estimate potential ROI.
+
+### Assumptions
+
+- Aggressive strategy yields ~10% average input token reduction (observed range: 4-14%)
+- Output quality remains at ~95.8% similarity (as measured in live A/B tests)
+- Token counts are estimated using a ~1.3 word-to-token ratio
+- Pricing is based on published model rates as of early 2025
+
+### Per-Call Savings by Model (Assuming ~12 Tokens Saved on Short Prompts)
+
+| Model | Cost per 1K Input Tokens | Savings per Prompt | Savings per 1,200 Prompts |
+|-------|--------------------------|-------------------|--------------------------|
+| GPT-4o | $0.0025 | $0.00003 | $0.036 |
+| GPT-4 | $0.03 | $0.00036 | $0.43 |
+| Claude Opus 4 | $0.015 | $0.00018 | $0.22 |
+| Claude Sonnet 4 | $0.003 | $0.000036 | $0.043 |
+| o1-pro | $0.15 | $0.0018 | $2.16 |
+
+### Scaling with Prompt Length
+
+In production, prompts are typically much longer than the short examples tested above (system prompts, context windows, few-shot examples). Assuming ~10% token reduction:
+
+| Prompt Size | Tokens Saved per Call | 1,200 Calls (Claude Opus) | 1,200 Calls (o1-pro) |
+|-------------|----------------------|--------------------------|---------------------|
+| Short (~100 tokens) | ~12 tokens | $0.22 | $2.16 |
+| Medium (~1,000 tokens) | ~100 tokens | $1.80 | $18.00 |
+| Long (~5,000 tokens) | ~500 tokens | $9.00 | $90.00 |
+| System prompts (~10,000 tokens) | ~1,000 tokens | $18.00 | $180.00 |
+
+### Assumed Production-Scale Savings (100K Calls/Day)
+
+For a startup making 100,000 API calls per day with medium-length prompts (~1,000 tokens) and ~10% optimization:
+
+| Model | Daily Savings | Monthly Savings | Yearly Savings |
+|-------|--------------|----------------|---------------|
+| GPT-4o | ~$25 | ~$750 | ~$9,000 |
+| Claude Opus 4 | ~$150 | ~$4,500 | ~$54,000 |
+| GPT-4 | ~$300 | ~$9,000 | ~$108,000 |
+| o1-pro | ~$1,500 | ~$45,000 | ~$540,000 |
+
+### Where Startups Save the Most
+
+1. **System prompts** — Sent with every API call; optimizing once saves on every request
+2. **Few-shot examples** — Often verbose and repetitive; high optimization potential
+3. **RAG context** — Retrieved chunks can be trimmed without losing retrieval quality
+4. **Batch processing** — High-volume pipelines multiply small per-call savings into significant amounts
+
+> **Bottom line:** Even a modest 4-14% reduction in input tokens compounds into meaningful cost savings at scale. For startups spending $5K-$50K+/month on LLM APIs, token optimization can pay for itself immediately.
