@@ -9,6 +9,9 @@ description = "A generic token optimization engine that reduces LLM API costs by
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
+authors = [
+    { name = "CJ Toolseram", email = "cjtoolseram@gmail.com" },
+]
 keywords = ["llm", "tokens", "optimization", "prompt", "compression", "openai", "anthropic", "gemini"]
 classifiers = [
     "Development Status :: 3 - Alpha",
